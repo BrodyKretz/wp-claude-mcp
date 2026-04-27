@@ -14,6 +14,21 @@ Once installed, an AI agent can list and edit posts and pages, manage the media 
 
 ---
 
+## What's new in v1.2.0
+
+This release applies the [mcp-builder skill](https://www.anthropic.com/) best practices across all 20 abilities:
+
+- **Output schemas** — every ability now declares an `output_schema` so MCP clients know the exact shape and types of returned data, enabling structured-content rendering and reliable downstream chaining.
+- **Real pagination metadata** — every list operation returns `total_count`, `page`, `per_page`, `has_more`, and `next_page` so clients can iterate through large datasets without guessing.
+- **MCP tool annotations** — `readOnlyHint`, `destructiveHint`, `idempotentHint`, and `openWorldHint` are set per ability via `meta.mcp.annotations`. List operations are read-only; create operations are non-idempotent; delete and overwrite operations are flagged destructive. Clients use these hints to decide what to confirm with the user.
+- **Actionable error messages** — every error includes a `Suggestion: ...` hint pointing the agent toward the next thing to try (e.g., "Use editorial/list-posts to find the correct ID"). Modeled on the mcp-builder principle that errors should reduce the agent's debugging loop.
+
+These changes are backward-compatible. Existing clients keep working; new clients get richer metadata.
+
+---
+
+
+
 ## Why this exists
 
 WordPress has a powerful REST API, but giving an AI client direct access to the REST API is awkward — there's no schema discovery, no permission contract, and exposing it on the open web requires careful application-password management.
