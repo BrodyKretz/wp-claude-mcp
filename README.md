@@ -209,6 +209,24 @@ add_action( 'wp_abilities_api_init', function() {
 
 ---
 
+## Acknowledgments & Credits
+
+**This project builds on:**
+
+- The [Model Context Protocol](https://modelcontextprotocol.io/) — the open spec by Anthropic that defines how AI clients communicate with external tools.
+- The [WordPress MCP Adapter](https://wordpress.org/plugins/mcp-adapter/) — the plugin that actually exposes WordPress over MCP. This project adds writeable editorial abilities on top of it; the adapter handles authentication, schema validation, and HTTP transport.
+- The WordPress Abilities API (core in WordPress 6.9+) — the underlying registration, permissioning, and execution layer that abilities plug into.
+
+Without those three pieces, none of this would work. Credit where it's due.
+
+**About the implementation:** This plugin was built collaboratively with [Claude](https://claude.ai) (Anthropic's AI assistant) — appropriate, given Claude is one of the MCP clients this plugin is designed to serve. The PHP in this repository was written by Claude under my direction. I made the architectural decisions (which 20 abilities to expose, how to organize them, the seven-category structure), debugged the issues that came up against my production site (the `wp_abilities_api_init` hook-order pitfall, the WP 6.9 category requirement, `wp_kses_post` stripping `<script>` tags from post content — which led to the footer-JS workaround), reviewed and tested every change, deployed it, and shipped it open-source.
+
+That collaborative pattern is increasingly how software gets built in 2026. I'd rather be transparent about it than pretend otherwise — and frankly, the interesting work in a project like this is the design, debugging, and integration, not the typing.
+
+**Used in production:** The portfolio site at [brodykretz.com](https://brodykretz.com) is edited entirely through this plugin — pages, posts, custom CSS, footer JS, the lot. If you visit it, you're looking at the output of these 20 abilities.
+
+---
+
 ## License
 
 MIT — see [`LICENSE`](LICENSE).
