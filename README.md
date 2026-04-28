@@ -2,8 +2,17 @@
 
 Give Claude (or any MCP-compatible AI client) full editorial access to a self-hosted WordPress site. Two small plugins, no SaaS, no third-party services in the data path.
 
-## WordPress recently shipped an official MCP plugin called the WordPress MCP Adapter that lets AI clients connect to your site, but on its own it mostly exposes read operations from WP core (list posts, fetch settings, that kind of thing). This plugin fills in the write side: twenty editorial abilities like create/edit/delete posts and pages, update Customizer CSS, inject footer JavaScript, and manage media, plus a small companion plugin that flips the mcp.public flag so all of them are actually exposed over MCP. End result: Claude can fully run a WordPress site, drafting posts, restyling the theme, updating settings, without anyone opening wp-admin.
+### Install these three things in order:
 
+    WordPress MCP Adapter — install from wordpress.org plugin directory, activate 
+    it. This is the official plugin, search it by name.
+    
+    This Plugin — download editorial-abilities.php from your GitHub, upload it to 
+    WordPress via Plugins → Add New → Upload. Activate it.
+    
+    Connect Claude — in Claude's settings, add an MCP server pointing at their 
+    site's URL (https://theirsite.com/wp-json/mcp/v1), with their WordPress username 
+    and an app password (generated in WP Admin → Users → Profile → Application Passwords).
 
 
 Once installed, an AI agent can list and edit posts and pages, manage the media library, update site settings and Customizer CSS, inject footer JavaScript, and read/write everything an editor would normally do through `/wp-admin` — all over the [Model Context Protocol](https://modelcontextprotocol.io/).
